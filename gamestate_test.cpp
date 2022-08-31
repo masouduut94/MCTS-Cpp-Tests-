@@ -2,74 +2,62 @@
 #include <gtest/gtest.h>
 #include "Header/GameState.h"
 
-TEST(TestGameState, TestGameStateFindNeighborCells) 
-{
-        /**********   TEST1: GameState::neighbors()    ***********/
-        // Test initializations.
+
+struct GameStateTest : public testing::Test {
         GameState state;
-        state.set_size(3);
-        std::vector<Cell> all_cells;
+        std::vector <Cell> all_cells;
+        Cell m1;
+        Cell m2;
+        Cell m3;
+        // Cells to test chaining rule from Top to Bottom (white Player)
+        Cell m4;
+        Cell m5;
+        Cell m6;
 
-        for (size_t i = 0; i <= state.get_size(); i++)
-        {
-                for (size_t j = 0; j <= state.get_size(); j++)
+        void SetUp() {
+                state.set_size(3);
+                for (size_t i = 0; i <= state.get_size(); i++)
                 {
-                        Cell move(i, j);
-                        all_cells.push_back(move);
+                        for (size_t j = 0; j <= state.get_size(); j++)
+                        {
+                                Cell move(i, j);
+                                all_cells.push_back(move);
+                        }
                 }
-        }
 
-        // Check the number of cells first.
+                // Cells to test chaining rule from Left to Right (Black Player)
+                m1 = { 0, 0 };
+                m2 = { 0, 1 };
+                m3 = { 0, 2 };
+
+                // Cells to test chaining rule from Top to Bottom (white Player)
+                m4 = { 0, 0 };
+                m5 = { 1, 0 };
+                m6 = { 2, 0 };
+        }
+        void TearDown() {}
+};
+
+
+TEST_F(GameStateTest, GameStateTestNeighbors) {
         std::vector<Cell> neighbors = state.neighbors(all_cells[0]);
         ASSERT_EQ(neighbors.size(), 2);
 }
 
-TEST(TestGameState, TestGameStateAvailableMoves)
-{
-        // Test initializations.
-        GameState state;
-        state.set_size(3);
-        std::vector<Cell> all_cells;
-
-        for (size_t i = 0; i <= state.get_size(); i++)
-        {
-                for (size_t j = 0; j <= state.get_size(); j++)
-                {
-                        Cell move(i, j);
-                        all_cells.push_back(move);
-                }
-        }
-
+TEST_F(GameStateTest, GameStateTestAvailableMoves) {
         /**********   TEST2: GameState::get_moves()    ***********/
         // Let's play a move and check if available moves are any different.
         state.play(all_cells[0]);
         std::vector<Cell> available_moves = state.get_moves();
         ASSERT_EQ(available_moves.size(), all_cells.size() - 1);
-
 }
 
 
-TEST(TestGameState, TestGameStateChainingRule)
-{
+TEST_F(GameStateTest, TestGameStateChainingRule) {
         // We want to test UnionFind module that whether it is detecting the connection between 2 sides for 
         // both black and white players.
 
         /**********   TEST3: GameState::winner    ***********/
-
-        GameState state;
-        state.set_size(3);
-        state.reset_board(3);
-
-        // Cells to test chaining rule from Left to Right (Black Player)
-        Cell m1(0, 0);
-        Cell m2(0, 1);
-        Cell m3(0, 2);
-
-        // Cells to test chaining rule from Top to Bottom (white Player)
-        Cell m4(0, 0);
-        Cell m5(1, 0);
-        Cell m6(2, 0);
-
         state.place_black(m1);
         int w = state.winner();
         ASSERT_EQ(GameMeta::PLAYERS["none"], w);
@@ -82,29 +70,16 @@ TEST(TestGameState, TestGameStateChainingRule)
         w = state.winner();
         ASSERT_EQ(GameMeta::PLAYERS["black"], w);
 
-        // Test the GameState::clone() 
-        // Check if GameState::clone creates a new object and the values of original GameState are not changing.
-
+        // Check if GameState deepCopy creates a new object with no change in values.
         state.reset_board(3);
         GameState state_copy(state);
-        //std::cout << "INIT STATE: " << state.winner() << std::endl;
-        state.place_black(m1);
-        state.place_black(m2);
-        state.place_black(m3);
-        /*std::cout << "######################" << std::endl;
-        std::cout << "STATE" << std::endl;*/
 
-        //state.unionfind_display();
-        /*std::cout << "######################" << std::endl;
-        std::cout << "NEW STATE" << std::endl;*/
         state_copy.place_white(m4);
         state_copy.place_white(m5);
         state_copy.place_white(m6);
-        //state_copy.unionfind_display();
-        //state.play(m3);
-        /*std::cout << "AFTER 3 Black moves |  STATE: " << state.winner() << std::endl;
-        std::cout << "NEW STATE: " << state_copy.winner() << std::endl;*/
         ASSERT_EQ(state_copy.winner(), GameMeta::PLAYERS["white"]);
 
 
 }
+
+
