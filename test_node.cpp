@@ -44,6 +44,8 @@ TEST_F(NodeTest, FindChildNodeRelated2Move) {
         ASSERT_EQ(is_found, false);
 }
 
+// TODO: Enable Node initialization with Null parent and Null move;
+
 // Test node value UCT
 
 
