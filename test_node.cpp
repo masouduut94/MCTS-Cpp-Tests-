@@ -3,21 +3,34 @@
 #include "Header/Node.h"
 
 
-TEST(TestNode, TestRootNode) {
-        // Testing Constructor
-        Cell move(3, 5);
-        Node root(move, nullptr);
+struct NodeTest : public testing::Test {
+        Cell move;
+        Cell ch1;
+        Cell ch2;
+        Cell ch3;
+        Cell ch4;
+        Node root;
+        std::vector<Cell> moves;
 
-        // Testing Node::add_children.
-        Cell ch1 (1, 2);
-        Cell ch2 (3, 4);
-        Cell ch3 (10, 4);
-        Cell ch4 (22, 5);
+        void SetUp() {
+                move = { 3, 5 };
+                root = { move, nullptr };
+                ch1 = { 1, 2 };
+                ch2 = { 3, 4 };
+                ch3 = { 10, 4 };
+                ch4 = { 22, 5 };
 
-        std::vector<Cell> moves = { ch1, ch2, ch3 };
-        root.add_children(moves);
+                moves = { ch1, ch2, ch3 };
+                root.add_children(moves);
+        }
 
-        // Testing Node::find_child   if found
+        void TearDown() {
+
+        }
+};
+
+
+TEST_F(NodeTest, FindChildNodeRelated2Move) {
         std::pair<bool, Node*> output;
         output = root.find_child(ch1);
         bool is_found = output.first;
@@ -26,26 +39,12 @@ TEST(TestNode, TestRootNode) {
         ASSERT_EQ(is_found, true);
         ASSERT_EQ(ch1, move1);
 
-        // Testing Node::find_child if not found
-
         output = root.find_child(ch4);
         is_found = output.first;
-        //Cell move4 = output.second->get_move();
-        
         ASSERT_EQ(is_found, false);
-
-        // root.display_children();
-
-        // Test node value UCT
-
-
-
-
-        // Test Node value RAVE
-
-
-
 }
 
+// Test node value UCT
 
 
+//        // Test Node value RAVE

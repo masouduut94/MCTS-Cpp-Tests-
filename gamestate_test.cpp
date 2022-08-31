@@ -39,12 +39,13 @@ struct GameStateTest : public testing::Test {
 };
 
 
-TEST_F(GameStateTest, GameStateTestNeighbors) {
+TEST_F(GameStateTest, Test_Neighbor_Cells) {
         std::vector<Cell> neighbors = state.neighbors(all_cells[0]);
         ASSERT_EQ(neighbors.size(), 2);
 }
 
-TEST_F(GameStateTest, GameStateTestAvailableMoves) {
+
+TEST_F(GameStateTest, Test_Unoccupied_Moves) {
         /**********   TEST2: GameState::get_moves()    ***********/
         // Let's play a move and check if available moves are any different.
         state.play(all_cells[0]);
@@ -53,7 +54,7 @@ TEST_F(GameStateTest, GameStateTestAvailableMoves) {
 }
 
 
-TEST_F(GameStateTest, TestGameStateChainingRule) {
+TEST_F(GameStateTest, Test_Chaining_Rule) {
         // We want to test UnionFind module that whether it is detecting the connection between 2 sides for 
         // both black and white players.
 
@@ -78,8 +79,5 @@ TEST_F(GameStateTest, TestGameStateChainingRule) {
         state_copy.place_white(m5);
         state_copy.place_white(m6);
         ASSERT_EQ(state_copy.winner(), GameMeta::PLAYERS["white"]);
-
-
 }
-
 
