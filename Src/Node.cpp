@@ -96,6 +96,13 @@ std::pair<bool, Node*>  Node::find_child(std::pair<int, int> move)
 
 Node* Node::best_move(bool by_value)
 {
+        /*  Returns the best child between all existing children nodes based on their
+        *    corresponding values or N
+        *   Args:
+        *       by_value(bool): if set true, the returned node has the maximum value between other nodes,
+        *                                 else, the returned node has the maximum number of simulations.
+
+        */
         Node* max=nullptr;
         if (by_value)
         {
@@ -104,8 +111,6 @@ Node* Node::best_move(bool by_value)
                         {
                                 return a->value() < b->value();
                         });
-
-
         }
         else
         {
