@@ -19,6 +19,11 @@ public:
         ~Node() {};
         Node(std::pair<int, int> inp_move, Node* parent_inp);
 
+        int get_N() { return this->N; }
+        int get_Q() { return this->Q; }
+        int get_N_RAVE() { return this->N_RAVE; }
+        int get_Q_RAVE() { return this->Q_RAVE; }
+
         double value(const float explore_const=0.5, int rave_const=-1);
         void add_children(std::vector<std::pair<int, int>>);
         void win() { this->N++; this->Q++; }
@@ -30,7 +35,7 @@ public:
         std::pair<bool, Node*> find_child(std::pair<int, int> move);
         bool has_children() { return this->children.empty(); };
         void display_children();
-        Node* clone() const { return new Node(*this); }
+        Node* best_move(bool by_value=true) {};
 };
 
 

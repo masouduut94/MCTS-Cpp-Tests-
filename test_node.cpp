@@ -44,6 +44,17 @@ TEST_F(NodeTest, FindChildNodeRelated2Move) {
         ASSERT_EQ(is_found, false);
 }
 
+TEST_F(NodeTest, TestIfNodeInitializedWithoutParentAndMove) {
+        std::pair<int, int> new_move = {NULL, NULL};
+        Node node(new_move, NULL);
+
+
+
+
+}
+
+
+
 // TODO: Enable Node initialization with Null parent and Null move;
 
 // Test node value UCT

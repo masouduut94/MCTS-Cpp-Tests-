@@ -4,7 +4,7 @@
 // ###################################### UCT Node Methods
 
 
-Node::Node(std::pair<int, int> inp_move, Node* parent_inp) 
+Node::Node(std::pair<int, int> inp_move, Node* parent_inp)
 {
         this->cell = inp_move;
         this->parent = parent_inp;
@@ -12,9 +12,10 @@ Node::Node(std::pair<int, int> inp_move, Node* parent_inp)
         this->N = 0;
         this->N_RAVE = 0;
         this->Q_RAVE = 0;
+        this->children = {};
 }
 
-void Node::add_children(std::vector<std::pair<int, int>> list_of_children) 
+void Node::add_children(std::vector<std::pair<int, int>> list_of_children)
 {
         for (std::pair<int, int> item : list_of_children) {
                 Node* node = new Node(item, this);
@@ -24,7 +25,7 @@ void Node::add_children(std::vector<std::pair<int, int>> list_of_children)
 
 void Node::display_children()
 {
-        if (this->children.empty()) 
+        if (this->children.empty())
         {
                 return;
         }
@@ -34,18 +35,19 @@ void Node::display_children()
         }
 }
 
-double Node::value(const float explore_const, int rave_const) 
+double Node::value(const float explore_const=0.5, int rave_const=0)
 {
-        /* 
+        /*
         Description:
                 Returns the RAVE + UCT value of node in MCTS algorithm.
-        
+
         Note:
                 If you consider using UCT, just pass -1 for RAVE_CONST.
-        
+
         */
-        if (N == 0) return GameMeta::INF;
-        else 
+        if (this->get_move().first == NULL) return NULL;
+        else if (N == 0) return GameMeta::INF;
+        else
         {
                 double alpha = 0;
                 double AMAF = 0.0;
@@ -58,7 +60,7 @@ double Node::value(const float explore_const, int rave_const)
                         {
                                 AMAF = static_cast<double>(this->Q_RAVE / this->N_RAVE);
                         }
-                        
+
                 }
                 return static_cast<double>((1 - alpha) * UCT + alpha * AMAF);
         }
@@ -71,7 +73,7 @@ std::pair<char, int> Node::get_move_char()
         return std::pair<char, int>(ch, a.second);
 }
 
-std::pair<bool, Node*>  Node::find_child(std::pair<int, int> move) 
+std::pair<bool, Node*>  Node::find_child(std::pair<int, int> move)
 {
         /*  Returns the child which constructed for input move.
 
@@ -81,7 +83,7 @@ std::pair<bool, Node*>  Node::find_child(std::pair<int, int> move)
 
         for (Node* child : this->children)
         {
-                if ((child->get_move() == move)) 
+                if ((child->get_move() == move))
                 {
                         flag_found = true;
                         value = child;
@@ -90,5 +92,34 @@ std::pair<bool, Node*>  Node::find_child(std::pair<int, int> move)
         }
         return std::make_pair(flag_found, value);
 }
+
+
+Node* Node::best_move(bool by_value=true)
+{
+        if (by_value)
+        {
+                auto max = std::max_element(this->children.begin(), this->children.end(),
+                        [](Node* a, Node* b)
+                        {
+                                return a->value() < b->value();
+                        });
+
+                
+        }
+        else
+        {
+                auto max = std::max_element(this->children.begin(), this->children.end(),
+                        [](Node* a, Node* b)
+                        {
+                                return a->get_N() < b->get_N();
+                        });
+        }
+        
+        
+}
+
+
+
+
 
 
