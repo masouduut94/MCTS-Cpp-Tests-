@@ -35,7 +35,7 @@ void Node::display_children()
         }
 }
 
-double Node::value(const float explore_const=0.5, int rave_const=0)
+double Node::value(const float explore_const, int rave_const)
 {
         /*
         Description:
@@ -94,28 +94,40 @@ std::pair<bool, Node*>  Node::find_child(std::pair<int, int> move)
 }
 
 
-Node* Node::best_move(bool by_value=true)
+Node* Node::best_move(bool by_value)
 {
+        Node* max=nullptr;
         if (by_value)
         {
-                auto max = std::max_element(this->children.begin(), this->children.end(),
+                auto max = *std::max_element(this->children.begin(), this->children.end(),
                         [](Node* a, Node* b)
                         {
                                 return a->value() < b->value();
                         });
 
-                
+
         }
         else
         {
-                auto max = std::max_element(this->children.begin(), this->children.end(),
+                auto max = *std::max_element(this->children.begin(), this->children.end(),
                         [](Node* a, Node* b)
                         {
                                 return a->get_N() < b->get_N();
                         });
         }
-        
-        
+
+        double max_value = max->value();
+        std::vector<Node*> temp;
+        for (Node* node : this->children)
+        {
+                if (node->value() == max->value())
+                {
+                        temp.emplace_back(node);
+                }
+        }
+
+        auto result = *select_randomly(temp.begin(), temp.end());
+        return result;
 }
 
 

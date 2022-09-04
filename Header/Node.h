@@ -35,7 +35,7 @@ public:
         std::pair<bool, Node*> find_child(std::pair<int, int> move);
         bool has_children() { return this->children.empty(); };
         void display_children();
-        Node* best_move(bool by_value=true) {};
+        Node* best_move(bool by_value=true);
 };
 
 
