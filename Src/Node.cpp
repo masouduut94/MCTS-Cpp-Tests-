@@ -103,7 +103,9 @@ Node* Node::best_move(bool by_value)
         *                                 else, the returned node has the maximum number of simulations.
 
         */
-        Node* max=nullptr;
+        Node* max;
+        std::vector<Node*> temp;
+
         if (by_value)
         {
                 auto max = *std::max_element(this->children.begin(), this->children.end(),
@@ -111,6 +113,17 @@ Node* Node::best_move(bool by_value)
                         {
                                 return a->value() < b->value();
                         });
+
+                for (Node* node : this->children)
+                {
+                        if (node->value() == max->value())
+                        {
+                                temp.emplace_back(node);
+                        }
+                }
+
+                auto result = *select_randomly(temp.begin(), temp.end());
+                return result;
         }
         else
         {
@@ -119,20 +132,18 @@ Node* Node::best_move(bool by_value)
                         {
                                 return a->get_N() < b->get_N();
                         });
-        }
 
-        double max_value = max->value();
-        std::vector<Node*> temp;
-        for (Node* node : this->children)
-        {
-                if (node->value() == max->value())
+                for (Node* node : this->children)
                 {
-                        temp.emplace_back(node);
+                        if (node->get_N() == max->get_N())
+                        {
+                                temp.emplace_back(node);
+                        }
                 }
-        }
 
-        auto result = *select_randomly(temp.begin(), temp.end());
-        return result;
+                auto result = *select_randomly(temp.begin(), temp.end());
+                return result;
+        }
 }
 
 

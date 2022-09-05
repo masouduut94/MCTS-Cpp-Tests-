@@ -24,18 +24,18 @@ public:
         int get_N_RAVE() { return this->N_RAVE; }
         int get_Q_RAVE() { return this->Q_RAVE; }
 
-        double value(const float explore_const=0.5, int rave_const=-1);
+        double value(const float explore_const = 0.5, int rave_const = -1);
         void add_children(std::vector<std::pair<int, int>>);
-        void win() { this->N++; this->Q++; }
-        void loss() { this->N++; this->Q--; }
-        void rave_win() { this->N_RAVE++; this->Q_RAVE++; }
-        void rave_loss() { this->N_RAVE++; this->Q_RAVE--; }
+        void win() { this->N += 1; this->Q += 1; }
+        void loss() { this->N += 1; this->Q -= 1; }
+        void rave_win() { this->N_RAVE += 1; this->Q_RAVE += 1; }
+        void rave_loss() { this->N_RAVE += 1; this->Q_RAVE -= 1; }
         std::pair<int, int> get_move() { return this->cell; }
         std::pair<char, int> get_move_char();
         std::pair<bool, Node*> find_child(std::pair<int, int> move);
         bool has_children() { return this->children.empty(); };
         void display_children();
-        Node* best_move(bool by_value=true);
+        Node* best_move(bool by_value = true);
 };
 
 

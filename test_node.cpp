@@ -78,61 +78,54 @@ struct NodeValueTest : public testing::Test {
 TEST_F(NodeValueTest, TestIfBestMoveReturnsTheCorrectMove) {
         std::pair<bool, Node*> result;
         bool flag;
-        Node node;
+        Node* node;
         for (std::pair<int, int> move : moves)
         {
                 result = root.find_child(move);
                 flag = result.first;
                 ASSERT_TRUE(flag);
-                node = *result.second;
+                node = result.second;
 
                 if (
-                       node.get_move() == std::make_pair(0, 0) || 
-                       node.get_move() == std::make_pair(0, 1) || 
-                       node.get_move() == std::make_pair(0, 2) || 
-                       node.get_move() == std::make_pair(1, 0) ||
-                       node.get_move() == std::make_pair(1, 1)
+                       node->get_move() == std::make_pair(0, 0) || 
+                       node->get_move() == std::make_pair(0, 1) ||
+                       node->get_move() == std::make_pair(0, 2) ||
+                       node->get_move() == std::make_pair(1, 0) ||
+                       node->get_move() == std::make_pair(1, 1)
                         )
                 {
                         for (size_t i = 0; i < 4; i++)
                         {
-                                node.win();
+                                node->win();
                         }
                 }
                 else if (
-                        node.get_move() == std::make_pair(2, 1) ||
-                        node.get_move() == std::make_pair(2, 2) ||
-                        node.get_move() == std::make_pair(1, 2)
+                        node->get_move() == std::make_pair(2, 1) ||
+                        node->get_move() == std::make_pair(2, 2) ||
+                        node->get_move() == std::make_pair(1, 2)
                         )
                 {
                         for (size_t i = 0; i < 3; i++)
                         {
-                                node.win();
+                                node->win();
                         }
-                        node.loss();
-
-
+                        node->loss();
                 }
 
-                else if  (node.get_move() == std::make_pair(2, 0) )
+                else if  (node->get_move() == std::make_pair(2, 0) )
                 {
-                        for (size_t i = 0; i < 21; i++)
+                        for (size_t i = 0; i < 20; i++)
                         {
-                                node.win();
+                                node->win();
                         }
-                
                 }
-                
-                Node* best = root.best_move(false);
-                move = best->get_move();
-                int N = best->get_N();
-                ASSERT_EQ(N, 20);
-                ASSERT_EQ(move, std::make_pair(2, 0));
-
-
         }
 
-
+        Node* best = root.best_move(false);
+        move = best->get_move();
+        int N = best->get_N();
+        ASSERT_EQ(N, 20);
+        ASSERT_EQ(move, std::make_pair(2, 0));
 
 }
 
