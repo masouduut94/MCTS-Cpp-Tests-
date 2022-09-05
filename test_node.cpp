@@ -54,6 +54,7 @@ struct NodeValueTest : public testing::Test {
         std::vector<Cell> moves;
 
         void SetUp() {
+                // Enable Node initialization with Null parentand Null move;
                 move = { NULL, NULL };
                 root = { move, nullptr };
                 for (int i = 0; i <= 2; i++)
@@ -75,7 +76,10 @@ struct NodeValueTest : public testing::Test {
 };
 
 
-TEST_F(NodeValueTest, TestIfBestMoveReturnsTheCorrectMove) {
+TEST_F(NodeValueTest, TestIfBestMoveReturnsTheCorrectMove) 
+// Test Node::best_move
+{
+
         std::pair<bool, Node*> result;
         bool flag;
         Node* node;
@@ -129,13 +133,3 @@ TEST_F(NodeValueTest, TestIfBestMoveReturnsTheCorrectMove) {
 
 }
 
-
-
-// TODO: Enable Node initialization with Null parent and Null move;
-
-// Test node value UCT
-
-
-//        // Test Node value RAVE
-
-// Test Node::best_move
