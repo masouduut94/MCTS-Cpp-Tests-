@@ -124,7 +124,7 @@ TEST_F(NodeValueTest, TestIfBestMoveReturnsTheCorrectMove)
                         }
                 }
         }
-
+        // Let's see if the (2, 0) move is going to be selected as the best move according to number of simulations.
         Node* best = root.best_move(false);
         move = best->get_move();
         int N = best->get_N();
