@@ -22,6 +22,13 @@ void Node::add_children(std::vector<std::pair<int, int>> list_of_children)
         }
 }
 
+void Node::remove_children()
+{
+        for (Node* child : this->children) {
+                delete child;
+        }
+}
+
 void Node::display_children()
 {
         if (this->children.empty()){

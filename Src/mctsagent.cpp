@@ -44,6 +44,7 @@ void MctsAgent::move(std::pair<int, int>){
 void MctsAgent::set_gamestate(GameState state){
         this->rootstate = state;
         Cell move = { -1, -1 };
+        this->root.remove_children();
         this->root = Node(move, nullptr);
 
 }
