@@ -37,9 +37,15 @@ std::pair<int, int> MctsAgent::best_move(){
 }
 
 void MctsAgent::move(std::pair<int, int>){
+
+
 }
 
 void MctsAgent::set_gamestate(GameState state){
+        this->rootstate = state;
+        Cell move = { -1, -1 };
+        this->root = Node(move, nullptr);
+
 }
 
 std::tuple<int, int, int> MctsAgent::statistics(){
