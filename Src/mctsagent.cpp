@@ -20,10 +20,14 @@ bool MctsAgent::expand(Node parent, GameState state){
 }
 
 int MctsAgent::roll_out(GameState state){
+
+
         return 0;
 }
 
 void MctsAgent::back_up(Node* node, int turn, int outcome){
+
+
 }
 
 std::pair<int, int> MctsAgent::best_move(){
