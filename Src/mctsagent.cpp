@@ -2,6 +2,11 @@
 #include "../Header/MctsAgent.h"
 
 MctsAgent::MctsAgent(GameState state){
+        this->root = Node();
+        this->rootstate = state;
+        this->run_time = 0;
+        this->node_count = 0;
+        this->num_rollouts = 0;
 }
 
 void MctsAgent::search(int time_budget){

@@ -6,6 +6,9 @@ class MctsAgent{
 private:
         GameState rootstate;
         Node root;
+        float run_time;
+        int num_rollouts;
+        int node_count;
 
 public:
         MctsAgent();
