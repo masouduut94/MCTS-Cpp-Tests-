@@ -2,13 +2,14 @@
 #include "Node.h"
 
 #pragma once
-class MctsAgent
-{
+class MctsAgent{
 private:
         GameState rootstate;
         Node root;
 
 public:
+        MctsAgent();
+        MctsAgent(GameState state);
         void search(int time_budget);
         std::pair<Node, GameState> select_node();
         bool expand(Node parent, GameState state);

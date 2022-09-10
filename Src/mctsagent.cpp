@@ -1,6 +1,9 @@
 
 #include "../Header/MctsAgent.h"
 
+MctsAgent::MctsAgent(GameState state){
+}
+
 void MctsAgent::search(int time_budget){
 
 

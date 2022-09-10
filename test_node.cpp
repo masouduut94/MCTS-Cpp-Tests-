@@ -79,7 +79,6 @@ struct NodeValueTest : public testing::Test {
 TEST_F(NodeValueTest, TestIfBestMoveReturnsTheCorrectMove) 
 // Test Node::best_move
 {
-
         std::pair<bool, Node*> result;
         bool flag;
         Node* node;
@@ -89,7 +88,6 @@ TEST_F(NodeValueTest, TestIfBestMoveReturnsTheCorrectMove)
                 flag = result.first;
                 ASSERT_TRUE(flag);
                 node = result.second;
-
                 if (
                        node->get_move() == std::make_pair(0, 0) || 
                        node->get_move() == std::make_pair(0, 1) ||
@@ -107,19 +105,15 @@ TEST_F(NodeValueTest, TestIfBestMoveReturnsTheCorrectMove)
                         node->get_move() == std::make_pair(2, 1) ||
                         node->get_move() == std::make_pair(2, 2) ||
                         node->get_move() == std::make_pair(1, 2)
-                        )
-                {
-                        for (size_t i = 0; i < 3; i++)
-                        {
-                                node->win();
+                        ){
+                                for (size_t i = 0; i < 3; i++) {
+                                        node->win();
                         }
                         node->loss();
                 }
 
-                else if  (node->get_move() == std::make_pair(2, 0) )
-                {
-                        for (size_t i = 0; i < 20; i++)
-                        {
+                else if  (node->get_move() == std::make_pair(2, 0) ) {
+                        for (size_t i = 0; i < 20; i++) {
                                 node->win();
                         }
                 }

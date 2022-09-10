@@ -20,6 +20,7 @@ private:
 
 public:
         /*GameState();*/
+
         GameState()
         {
                 this->set_turn(GameMeta::TURN["white"]);
@@ -34,8 +35,7 @@ public:
         };
         GameState(GameState  &sample)
         {
-                // TRY THIS https://stackoverflow.com/questions/12902751/how-to-clone-object-in-c-or-is-there-another-solution
-                // TRY THIS https://www.techiedelight.com/how-to-clone-objects-in-cpp/
+                // DeepCopy of instances
                 this->size = sample.size;
                 this->board = sample.board;
                 this->turn = sample.turn;
