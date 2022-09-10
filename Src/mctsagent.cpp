@@ -2,7 +2,16 @@
 #include "../Header/MctsAgent.h"
 
 MctsAgent::MctsAgent(GameState state){
-        this->root = Node();
+        std::pair<int, int> move = { -1, -1 };
+        this->root = Node(move, nullptr);
+        /*
+            To check if a ptr is null or not.
+            int* ptr = nullptr;
+    
+            if (!ptr){
+                cout << "OK";
+            }
+        */
         this->rootstate = state;
         this->run_time = 0;
         this->node_count = 0;
