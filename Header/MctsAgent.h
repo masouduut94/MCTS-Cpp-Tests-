@@ -14,8 +14,8 @@ public:
         MctsAgent();
         MctsAgent(GameState state);
         void search(int time_budget);
-        std::pair<Node, GameState> select_node();
-        bool expand(Node parent, GameState state);
+        std::pair<Node*, GameState> select_node();
+        bool expand(Node* parent, GameState state);
         int roll_out(GameState state);
         void back_up(Node* node, int turn, int outcome);
         std::pair <int, int> best_move();

@@ -23,14 +23,30 @@ void MctsAgent::search(int time_budget){
 
 }
 
-std::pair<Node, GameState> MctsAgent::select_node(){
+std::pair<Node*, GameState> MctsAgent::select_node(){
+        GameState state = this->rootstate;
+
+        while (this->root.has_children()) {
+                // Not COMPLETED
+                Node* node = this->root.best_move(true);
+                std::pair<int, int> move = node->get_move();
+                state.play(move);
+                if (node->get_N() == 0) {
+                        return std::make_pair(node, state);
+                }
+                if (this->expand(node, state)) {
+                        // Not COMPLETED:: implement this->expand() first
+                        state.play(node->get_move());
+                }
 
 
+        }
 
-        return std::pair<Node, GameState>(); 
+
+        return std::pair<Node*, GameState>(); 
 }
 
-bool MctsAgent::expand(Node parent, GameState state){
+bool MctsAgent::expand(Node* parent, GameState state){
 
 
         return false;
