@@ -35,8 +35,8 @@ std::pair<Node*, GameState> MctsAgent::select_node(){
                         return std::make_pair(node, state);
                 }
                 if (this->expand(node, state)) {
-                        // Not COMPLETED:: implement this->expand() first
-                        state.play(node->get_move());
+                        // Not COMPLETED:: implement this->expand() first 
+                        state.play(node->get_move()); 
                 }
 
 
