@@ -28,35 +28,30 @@ std::pair<Node*, GameState> MctsAgent::select_node(){
         /* 
         Select a node in the tree to preform a single simulation from.
         */
-
-
+        
         //     copy the root state and root node because we want \
                 to traverse the tree from root to leaf node.
-        GameState state = this->rootstate;   
-        Node node(this->root);
-
+        GameState state = this->rootstate; 
+        Node node = Node(this->root);
+        Node* nodeptr = &node;
         //      stop if we find reach a leaf node
-        while (node.has_children()) {
+        while (nodeptr->has_children()) {
                 //      Descend to the maximum value node, break ties at random
-                Node* node = this->root.best_move(true);
-                std::pair<int, int> move = node->get_move();
+                nodeptr = nodeptr->best_move(true);
+                std::pair<int, int> move = nodeptr->get_move();
                 state.play(move);
 
                 //     if some child node has not been explored select it before expanding \
                         other children
-                if (node->get_N() == 0) {
-                        return std::make_pair(node, state);
+                if (nodeptr->get_N() == 0) {
+                        return std::make_pair(nodeptr, state);
                 }
-                if (this->expand(node, state)) {
-                        node = node->best_move(true);
-                        state.play(node->get_move()); 
+                if (this->expand(nodeptr, state)) {
+                        nodeptr = nodeptr->best_move(true);
+                        state.play(nodeptr->get_move());
                 }
-
-
         }
-
-
-        return std::pair<Node*, GameState>(); 
+        return std::make_pair(nodeptr, state);
 }
 
 bool MctsAgent::expand(Node* parent, GameState state){
@@ -88,12 +83,44 @@ bool MctsAgent::expand(Node* parent, GameState state){
 }
 
 int MctsAgent::roll_out(GameState state){
+        /*
+        Simulate an entirely random game from the passed state and return the winning
+        player.
 
+        Args:
+            state: game state
 
-        return 0;
+        Returns:
+            int: winner of the game
+        */
+
+        std::vector<Cell> moves = state.get_moves();
+        while (state.winner() == PLAYERS["none"]) {
+                Cell move = *select_randomly(moves.begin(), moves.end());
+                state.play(move);
+                moves.erase(std::find(moves.begin(), moves.end(), move));  // TODO: Optimize this part.!!!!
+        }
+
+        return state.winner();
 }
 
 void MctsAgent::back_up(Node* node, int turn, int outcome){
+        /*
+        Update the node statistics on the path from the passed node to root to reflect
+        the outcome of a randomly simulated playout.
+
+        Args:
+            node:
+            turn: winner turn
+            outcome: outcome of the rollout
+
+        Returns:
+            object:
+        */
+        int reward;
+        reward = (turn == outcome) ? 0 : 1;
+
+        //while (node != )
 
 
 }

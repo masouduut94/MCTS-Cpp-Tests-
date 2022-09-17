@@ -17,7 +17,7 @@ private:
 public:
         Node() {};
         ~Node() {};
-        Node(Node &sample);
+        Node(const Node &sample);
         Node(std::pair<int, int> inp_move, Node* parent_inp);
 
         int get_N() { return this->N; }

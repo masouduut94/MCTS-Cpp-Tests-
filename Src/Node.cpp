@@ -4,7 +4,7 @@
 // ###################################### UCT Node Methods
 
 
-Node::Node(Node &sample) {
+Node::Node(const Node &sample) {
         // DeepCopy function.
         this->parent = sample.parent;
         this->Q = sample.Q;
