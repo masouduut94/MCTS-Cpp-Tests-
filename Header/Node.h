@@ -11,12 +11,13 @@ private:
         int N_RAVE = 0;
         int Q_RAVE = 0;
         int OUTCOME = GameMeta::GAME_ON;
-        Node* parent;
+        Node* parent=nullptr;
         std::vector <Node*> children;
 
 public:
         Node() {};
         ~Node() {};
+        Node(Node &sample);
         Node(std::pair<int, int> inp_move, Node* parent_inp);
 
         int get_N() { return this->N; }
@@ -25,7 +26,7 @@ public:
         int get_Q_RAVE() { return this->Q_RAVE; }
 
         double value(const float explore_const = 0.5, int rave_const = -1);
-        void add_children(std::vector<std::pair<int, int>>);
+        void add_children(std::vector<Cell>);
         void win() { this->N++; this->Q++; }
         void loss() { this->N++; this->Q--; }
         void rave_win() { this->N_RAVE++; this->Q_RAVE++; }

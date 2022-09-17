@@ -1,5 +1,6 @@
-
 #include "../Header/MctsAgent.h"
+
+using namespace GameMeta;
 
 MctsAgent::MctsAgent(GameState state){
         std::pair<int, int> move = { -1, -1 };
@@ -24,18 +25,30 @@ void MctsAgent::search(int time_budget){
 }
 
 std::pair<Node*, GameState> MctsAgent::select_node(){
-        GameState state = this->rootstate;
+        /* 
+        Select a node in the tree to preform a single simulation from.
+        */
 
-        while (this->root.has_children()) {
-                // Not COMPLETED
+
+        //     copy the root state and root node because we want \
+                to traverse the tree from root to leaf node.
+        GameState state = this->rootstate;   
+        Node node(this->root);
+
+        //      stop if we find reach a leaf node
+        while (node.has_children()) {
+                //      Descend to the maximum value node, break ties at random
                 Node* node = this->root.best_move(true);
                 std::pair<int, int> move = node->get_move();
                 state.play(move);
+
+                //     if some child node has not been explored select it before expanding \
+                        other children
                 if (node->get_N() == 0) {
                         return std::make_pair(node, state);
                 }
                 if (this->expand(node, state)) {
-                        // Not COMPLETED:: implement this->expand() first 
+                        node = node->best_move(true);
                         state.play(node->get_move()); 
                 }
 
@@ -47,8 +60,30 @@ std::pair<Node*, GameState> MctsAgent::select_node(){
 }
 
 bool MctsAgent::expand(Node* parent, GameState state){
+        /*
+        Generate the children of the input "parent" node based on the available
+        moves in the input gamestate and add them to the tree.
 
+        Args:
+                parent (Node*): The node that is supposed to be expanded.
+                State (GameState): The game state of the `parent` node, that 
+                        is used to generate the available moves.
 
+        Returns:
+                bool: returns false If node is leaf (the game has ended).
+        
+        */
+
+        std::vector <Cell> children = {};
+        if (state.winner() != PLAYERS["none"]){
+                return false;
+        }
+
+        for (Cell cell : state.get_moves()) {
+                children.emplace_back(cell);
+        }
+
+        parent->add_children(children);
         return false;
 }
 

@@ -1,5 +1,8 @@
 #include "GameState.h"
 #include "Node.h"
+#include "utils.h"
+
+using namespace GameMeta;
 
 #pragma once
 class MctsAgent{

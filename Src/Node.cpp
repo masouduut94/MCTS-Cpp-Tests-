@@ -4,7 +4,18 @@
 // ###################################### UCT Node Methods
 
 
-Node::Node(std::pair<int, int> inp_move, Node* parent_inp){
+Node::Node(Node &sample) {
+        // DeepCopy function.
+        this->parent = sample.parent;
+        this->Q = sample.Q;
+        this->N = sample.N;
+        this->N_RAVE = sample.N_RAVE;
+        this->Q_RAVE = sample.Q_RAVE;
+        this->OUTCOME = sample.OUTCOME;
+        this->children = sample.children;
+}
+
+Node::Node(std::pair<int, int> inp_move, Node* parent_inp) {
         this->cell = inp_move;
         this->parent = parent_inp;
         this->Q = 0;
@@ -14,7 +25,7 @@ Node::Node(std::pair<int, int> inp_move, Node* parent_inp){
         this->children = {};
 }
 
-void Node::add_children(std::vector<std::pair<int, int>> list_of_children)
+void Node::add_children(std::vector<Cell> list_of_children)
 {
         for (std::pair<int, int> item : list_of_children) {
                 Node* node = new Node(item, this);
@@ -24,6 +35,7 @@ void Node::add_children(std::vector<std::pair<int, int>> list_of_children)
 
 void Node::remove_children()
 {
+        // TODO: TEST THIS
         for (Node* child : this->children) {
                 delete child;
         }
@@ -31,10 +43,10 @@ void Node::remove_children()
 
 void Node::display_children()
 {
-        if (this->children.empty()){
+        if (this->children.empty()) {
                 return;
         }
-        for (Node* ch : this->children){
+        for (Node* ch : this->children) {
                 printf("{Cell: '%c-%i'}", ch->get_move_char());
         }
 }
@@ -71,7 +83,7 @@ std::pair<char, int> Node::get_move_char() {
         return std::pair<char, int>(ch, a.second);
 }
 
-std::pair<bool, Node*>  Node::find_child(std::pair<int, int> move){
+std::pair<bool, Node*>  Node::find_child(std::pair<int, int> move) {
         /*  Returns the child which constructed for input move.
 
         */
@@ -87,8 +99,7 @@ std::pair<bool, Node*>  Node::find_child(std::pair<int, int> move){
         return std::make_pair(flag_found, value);
 }
 
-
-Node* Node::best_move(bool by_value){
+Node* Node::best_move(bool by_value) {
         /*  Returns the best child between all existing children nodes based on their
         *    corresponding values or N
         *   Args:
@@ -128,9 +139,4 @@ Node* Node::best_move(bool by_value){
                 return result;
         }
 }
-
-
-
-
-
 
