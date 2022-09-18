@@ -31,7 +31,7 @@ public:
         void update_reward_rave(int reward) { this->N_RAVE++; this->Q_RAVE += reward; }
         std::pair<int, int> get_move() { return this->cell; }
         std::pair<char, int> get_move_char();
-        std::pair<bool, Node*> find_child(std::pair<int, int> move);
+        std::pair<bool, Node*> find_child(Cell move);
         bool has_children() { return this->children.empty(); };
         Node* get_parent() { return this->parent; }
         void remove_children();

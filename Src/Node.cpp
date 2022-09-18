@@ -83,7 +83,7 @@ std::pair<char, int> Node::get_move_char() {
         return std::pair<char, int>(ch, a.second);
 }
 
-std::pair<bool, Node*>  Node::find_child(std::pair<int, int> move) {
+std::pair<bool, Node*> Node::find_child(Cell move) {
         /*  Returns the child which constructed for input move.
 
         */

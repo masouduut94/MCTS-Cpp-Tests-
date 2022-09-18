@@ -127,17 +127,38 @@ void MctsAgent::back_up(Node* node, int turn, int outcome){
                 nodeptr = nodeptr->get_parent();
                 reward = (reward == 0) ? 1 : 0;
         }
-
-
 }
 
-std::pair<int, int> MctsAgent::best_move(){
+std::pair<bool, std::pair<int, int>> MctsAgent::best_move(){
+        /*
+        Return the best move after analysis of the root children simulations.
+        The node with the most number of simulations has the most proof available
+        to indicate the best move.        
+        */
 
+        if (this->rootstate.winner() != PLAYERS["none"]) {
+                std::pair<bool, std::pair<int, int>> output = { false, {-100, -100} };
+                return output;
+        }
 
-        return std::pair<int, int>();
+        std::pair<int, int> output = this->root.best_move(false)->get_move();
+
+        return std::make_pair(true, output);
 }
 
-void MctsAgent::move(std::pair<int, int>){
+void MctsAgent::move(std::pair<int, int> move){
+        
+        /*
+        1 - Disconnect the child from parent
+        2 - Pop out the child from old root children.
+        3 - Delete the other children and free the memory.
+        4 - Rewrite a self-destruction method that can remove its children properly.
+        5 - Play the move in rootstate and replace it.
+
+        */ 
+        
+        std::pair<bool, Node*> result = this->root.find_child(move);
+
 
 
 }

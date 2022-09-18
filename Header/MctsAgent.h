@@ -8,7 +8,7 @@ using namespace GameMeta;
 class MctsAgent{
 private:
         GameState rootstate;
-        Node root;
+        Node root; // TODO: Replace it with dynamic memory.
         float run_time;
         int num_rollouts;
         int node_count;
@@ -21,7 +21,7 @@ public:
         bool expand(Node* parent, GameState state);
         int roll_out(GameState state);
         void back_up(Node* node, int turn, int outcome);
-        std::pair <int, int> best_move();
+        std::pair<bool, std::pair<int, int>> best_move();
         void move(std::pair<int, int>);
         void set_gamestate(GameState state);
         std::tuple<int, int, int> statistics();
