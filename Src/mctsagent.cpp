@@ -31,9 +31,11 @@ std::pair<Node*, GameState> MctsAgent::select_node(){
         
         //     copy the root state and root node because we want \
                 to traverse the tree from root to leaf node.
+
         GameState state = this->rootstate; 
         Node node = Node(this->root);
         Node* nodeptr = &node;
+
         //      stop if we find reach a leaf node
         while (nodeptr->has_children()) {
                 //      Descend to the maximum value node, break ties at random
@@ -117,10 +119,14 @@ void MctsAgent::back_up(Node* node, int turn, int outcome){
         Returns:
             object:
         */
-        int reward;
-        reward = (turn == outcome) ? 0 : 1;
+        int reward = (turn == outcome) ? 0 : 1;
+        Node* nodeptr = new Node(*node);
 
-        //while (node != )
+        while (nodeptr != NULL) {
+                nodeptr->update_reward(reward);
+                nodeptr = nodeptr->get_parent();
+                reward = (reward == 0) ? 1 : 0;
+        }
 
 
 }
