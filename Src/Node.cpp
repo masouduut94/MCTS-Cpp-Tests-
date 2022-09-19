@@ -84,8 +84,8 @@ std::pair<char, int> Node::get_move_char() {
 }
 
 std::pair<bool, Node*> Node::find_child(Cell move) {
-        /*  Returns the child which constructed for input move.
-
+        /*  
+        Returns the child which constructed for input move.
         */
         bool flag_found = false;
         Node* value = nullptr;

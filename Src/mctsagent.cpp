@@ -3,8 +3,7 @@
 using namespace GameMeta;
 
 MctsAgent::MctsAgent(GameState state){
-        std::pair<int, int> move = { -1, -1 };
-        this->root = Node(move, nullptr);
+        this->root = new Node(GameMeta::None , nullptr);
         /*
             To check if a ptr is null or not.
             int* ptr = nullptr;

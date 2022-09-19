@@ -8,13 +8,16 @@ using namespace GameMeta;
 class MctsAgent{
 private:
         GameState rootstate;
-        Node root; // TODO: Replace it with dynamic memory.
-        float run_time;
-        int num_rollouts;
-        int node_count;
+        Node* root; // TODO: Replace it with dynamic memory.
+        float run_time=0;
+        int num_rollouts=0;
+        int node_count=0;
 
 public:
-        MctsAgent();
+        MctsAgent() {
+                this->root = new Node();
+                this->rootstate = GameState()
+        };
         MctsAgent(GameState state);
         void search(int time_budget);
         std::pair<Node*, GameState> select_node();

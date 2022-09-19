@@ -19,6 +19,7 @@ int GameMeta::GAME_ON = 1;
 
 Cell GameMeta::EDGE1 = { 100, 100 };
 Cell GameMeta::EDGE2 = { 200, 200 };
+Cell GameMeta::None = { -1, -1 };
 int GameMeta::RAVE_CONST = 300;
 int GameMeta::EXP_CONST = 0.5;
 

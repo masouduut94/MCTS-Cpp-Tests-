@@ -56,6 +56,7 @@ namespace GameMeta {
         extern int NEIGHBOR_PATTERNS[6][2];
         extern int RAVE_CONST;
         extern int EXP_CONST;
+        extern Cell None;
         extern std::unordered_map<int, char> mapper;
         };
 
