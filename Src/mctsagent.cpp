@@ -32,7 +32,7 @@ std::pair<Node*, GameState> MctsAgent::select_node(){
                 to traverse the tree from root to leaf node.
 
         GameState state = this->rootstate; 
-        Node node = Node(this->root);
+        Node node = Node(*this->root);
         Node* nodeptr = &node;
 
         //      stop if we find reach a leaf node
@@ -140,7 +140,7 @@ std::pair<bool, std::pair<int, int>> MctsAgent::best_move(){
                 return output;
         }
 
-        std::pair<int, int> output = this->root.best_move(false)->get_move();
+        std::pair<int, int> output = this->root->best_move(false)->get_move();
 
         return std::make_pair(true, output);
 }
@@ -156,7 +156,7 @@ void MctsAgent::move(std::pair<int, int> move){
 
         */ 
         
-        std::pair<bool, Node*> result = this->root.find_child(move);
+        std::pair<bool, Node*> result = this->root->find_child(move);
 
 
 
@@ -164,10 +164,8 @@ void MctsAgent::move(std::pair<int, int> move){
 
 void MctsAgent::set_gamestate(GameState state){
         this->rootstate = state;
-        Cell move = { -1, -1 };
-        this->root.remove_children();
-        this->root = Node(move, nullptr);
-
+        this->root->remove_children();
+        this->root = new Node(GameMeta::None, nullptr);
 }
 
 std::tuple<int, int, int> MctsAgent::statistics(){

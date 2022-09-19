@@ -16,7 +16,7 @@ private:
 public:
         MctsAgent() {
                 this->root = new Node();
-                this->rootstate = GameState()
+                this->rootstate = GameState();
         };
         MctsAgent(GameState state);
         void search(int time_budget);
