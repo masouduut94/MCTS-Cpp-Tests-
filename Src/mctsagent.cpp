@@ -1,4 +1,6 @@
 #include "../Header/MctsAgent.h"
+#include <chrono>
+
 
 using namespace GameMeta;
 
@@ -19,7 +21,48 @@ MctsAgent::MctsAgent(GameState state){
 }
 
 void MctsAgent::search(int time_budget){
+        /*
+        * 
+        * SAMPLE CODE
+        auto t1 = std::chrono::system_clock::now().time_since_epoch();
+    
+    int i=0;
+    int d = 0;
+    while (i<200000000){
+        for(int j=0; j<1000;j++)
+        {
+            i++;
+            d++;
+            d--;
+            d++;
+            i--;
+            d++;
+            d--;
+            d++;
+            i++;
+            d++;
+            d--;
+            d++;
+        }
+        
+    }
+    
+    auto t2 = std::chrono::system_clock::now().time_since_epoch();
+    
+    t2 -= t1;
+    
+    auto s = std::chrono::duration_cast<std::chrono::seconds>(t2);
+    
+    int si = s.count();
+    
+    std::cout << si << '\n';
 
+
+    return 0;
+}
+        
+        
+        */
 
 }
 
