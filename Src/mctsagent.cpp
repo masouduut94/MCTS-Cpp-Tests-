@@ -21,48 +21,27 @@ MctsAgent::MctsAgent(GameState state){
 }
 
 void MctsAgent::search(int time_budget){
-        /*
-        * 
-        * SAMPLE CODE
-        auto t1 = std::chrono::system_clock::now().time_since_epoch();
-    
-    int i=0;
-    int d = 0;
-    while (i<200000000){
-        for(int j=0; j<1000;j++)
-        {
-            i++;
-            d++;
-            d--;
-            d++;
-            i--;
-            d++;
-            d--;
-            d++;
-            i++;
-            d++;
-            d--;
-            d++;
+
+        auto start_time = std::chrono::system_clock::now().time_since_epoch();
+        auto time_step = std::chrono::system_clock::now().time_since_epoch();
+        auto spent = time_step - start_time;
+        auto spent_ch = std::chrono::duration_cast<std::chrono::seconds>(spent);
+        int elapsed_seconds = spent_ch.count();
+
+        while (elapsed_seconds < time_budget) {
+                std::pair<Node*, GameState> result = this->select_node();
+                Node* node = result.first;
+                GameState state = result.second;
+                int turn = state.get_turn();
+                int outcome = this->roll_out(state);
+                this->back_up(node, turn, outcome);
+
+                auto time_step = std::chrono::system_clock::now().time_since_epoch();
+                auto spent = time_step - start_time;
+                auto spent_ch = std::chrono::duration_cast<std::chrono::seconds>(spent);
+                int elapsed_seconds = spent_ch.count();
+
         }
-        
-    }
-    
-    auto t2 = std::chrono::system_clock::now().time_since_epoch();
-    
-    t2 -= t1;
-    
-    auto s = std::chrono::duration_cast<std::chrono::seconds>(t2);
-    
-    int si = s.count();
-    
-    std::cout << si << '\n';
-
-
-    return 0;
-}
-        
-        
-        */
 
 }
 
